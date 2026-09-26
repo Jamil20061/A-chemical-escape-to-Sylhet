@@ -2097,6 +2097,336 @@ document.addEventListener("keydown",(e)=>{
         font-weight: 600;
         text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
     }
-</style>
+ </style>
+ <!-- CONFIRMATION SECTION -->
+
+<section id="confirmation">
+  <div class="container">
+
+    <div class="card reveal" style="text-align:center;">
+
+      <div class="kicker">
+        TOUR CONFIRMATION
+      </div>
+
+      <h2 style="margin-top:10px;">
+        🎟️ Tour Confirmation
+      </h2>
+
+      <p style="
+        margin-top:15px;
+        color:#c8d8d2;
+        line-height:1.8;
+      ">
+        যেতে ইচ্ছুক হলে কনফার্ম বাটনে ক্লিক করুন।
+      </p>
+
+      <button
+        id="confirmBtn"
+        style="
+          margin-top:25px;
+          padding:15px 35px;
+          border:none;
+          border-radius:50px;
+          background:var(--green);
+          color:#04150e;
+          font-size:16px;
+          font-weight:700;
+          cursor:pointer;
+          box-shadow:0 0 25px rgba(141,255,209,.18);
+        "
+      >
+        Confirm
+      </button>
+
+      <div
+        id="confirmMessage"
+        style="
+          margin-top:15px;
+          color:var(--green);
+          min-height:24px;
+        "
+      ></div>
+
+    </div>
+
+
+    <div class="card reveal" style="
+      margin-top:25px;
+      text-align:center;
+    ">
+
+      <div class="kicker">
+        CONFIRMED MEMBERS
+      </div>
+
+      <h3 style="
+        margin-top:10px;
+        font-size:22px;
+      ">
+        ইতোমধ্যে কনফার্ম করেছে
+      </h3>
+
+      <div
+        id="confirmCount"
+        style="
+          margin-top:20px;
+          font-size:55px;
+          font-weight:800;
+          color:var(--green);
+          text-shadow:0 0 25px rgba(141,255,209,.25);
+        "
+      >
+        0
+      </div>
+
+      <p style="
+        margin-top:5px;
+        color:#91aaa1;
+      ">
+        জন
+      </p>
+
+    </div>
+
+  </div>
+</section>
+ <!-- FIREBASE TOUR CONFIRMATION -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInAnonymously
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+
+// ===============================
+// FIREBASE CONFIG
+// ===============================
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyCdMdNCqn3PwDyH0en3INUG4j6lDL-ojUU",
+
+  authDomain:
+    "chemical-escape-sylhet.firebaseapp.com",
+
+  databaseURL:
+    "https://chemical-escape-sylhet-default-rtdb.firebaseio.com",
+
+  projectId:
+    "chemical-escape-sylhet",
+
+  storageBucket:
+    "chemical-escape-sylhet.firebasestorage.app",
+
+  messagingSenderId:
+    "984807487892",
+
+  appId:
+    "1:984807487892:web:ca8834d1ac24b245997781",
+
+  measurementId:
+    "G-0BJLKPQ0RF"
+
+};
+
+
+// ===============================
+// INITIALIZE FIREBASE
+// ===============================
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getDatabase(app);
+
+
+// ===============================
+// HTML ELEMENTS
+// ===============================
+
+const confirmButton =
+  document.getElementById("confirmBtn");
+
+const confirmCount =
+  document.getElementById("confirmCount");
+
+const confirmMessage =
+  document.getElementById("confirmMessage");
+
+
+// ===============================
+// START ANONYMOUS LOGIN
+// ===============================
+
+signInAnonymously(auth)
+
+  .then((userCredential) => {
+
+    const user = userCredential.user;
+
+    const userRef =
+      ref(db, "tourConfirmations/" + user.uid);
+
+
+    // ===============================
+    // CHECK IF USER ALREADY CONFIRMED
+    // ===============================
+
+    onValue(userRef, (snapshot) => {
+
+      if (snapshot.exists() && snapshot.val() === true) {
+
+        confirmButton.disabled = true;
+
+        confirmButton.textContent =
+          "✓ Confirmed";
+
+        confirmButton.style.opacity = "0.6";
+
+        confirmButton.style.cursor =
+          "not-allowed";
+
+        confirmMessage.textContent =
+          "আপনি ইতোমধ্যে কনফার্ম করেছেন। ❤️";
+
+      }
+
+    });
+
+
+    // ===============================
+    // CONFIRM BUTTON
+    // ===============================
+
+    confirmButton.addEventListener(
+      "click",
+      async () => {
+
+        if (confirmButton.disabled) {
+          return;
+        }
+
+
+        confirmButton.disabled = true;
+
+        confirmButton.textContent =
+          "Confirming...";
+
+
+        try {
+
+          await set(
+            userRef,
+            true
+          );
+
+
+          confirmButton.textContent =
+            "✓ Confirmed";
+
+          confirmButton.style.opacity =
+            "0.6";
+
+          confirmButton.style.cursor =
+            "not-allowed";
+
+
+          confirmMessage.textContent =
+            "আপনার কনফার্মেশন সফল হয়েছে। ❤️";
+
+
+        }
+
+        catch (error) {
+
+          console.error(
+            "Confirmation error:",
+            error
+          );
+
+
+          confirmButton.disabled =
+            false;
+
+          confirmButton.textContent =
+            "Confirm";
+
+
+          confirmMessage.textContent =
+            "কনফার্ম করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+        }
+
+      }
+    );
+
+
+    // ===============================
+    // LIVE CONFIRMATION COUNT
+    // ===============================
+
+    const confirmationsRef =
+      ref(db, "tourConfirmations");
+
+
+    onValue(
+      confirmationsRef,
+      (snapshot) => {
+
+        const data =
+          snapshot.val();
+
+
+        let count = 0;
+
+
+        if (data) {
+
+          count =
+            Object.keys(data).length;
+
+        }
+
+
+        confirmCount.textContent =
+          count;
+
+      }
+    );
+
+  })
+
+
+  .catch((error) => {
+
+    console.error(
+      "Firebase authentication error:",
+      error
+    );
+
+
+    confirmMessage.textContent =
+      "সংযোগ করতে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।";
+
+  });
+
+</script>
 </body>
 </html>
