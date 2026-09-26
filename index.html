@@ -1,748 +1,1621 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>A Chemical Escape to Sylhet</title>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap');
 
+
 :root{
- --green:#8dffd1;
- --dark:#03110c;
- --glass:rgba(8,25,19,.65);
- --line:rgba(255,255,255,.13);
+    --green:#8dffd1;
+    --dark:#03110c;
+    --glass:rgba(8,25,19,.65);
+    --line:rgba(255,255,255,.13);
+    --muted:#9eb2aa;
 }
+
 
 *{
- margin:0;
- padding:0;
- box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
+
 
 html{
- scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
+
 
 body{
- font-family:Montserrat,'Noto Sans Bengali',sans-serif;
- background:var(--dark);
- color:#fff;
- overflow-x:hidden;
+    font-family:
+        Montserrat,
+        'Noto Sans Bengali',
+        sans-serif;
+
+    background:var(--dark);
+    color:#fff;
+    overflow-x:hidden;
 }
 
-/* BACKGROUND */
+
+/* =========================
+   BACKGROUND
+========================= */
 
 .bg{
- position:fixed;
- inset:0;
- z-index:-5;
- background:
- linear-gradient(180deg,rgba(1,15,10,.35),#03110c 90%),
- url("https://commons.wikimedia.org/wiki/Special:FilePath/Jaflong.jpg")
- center/cover fixed;
+    position:fixed;
+    inset:0;
+    z-index:-5;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(1,15,10,.35),
+            #03110c 90%
+        ),
+        url("https://commons.wikimedia.org/wiki/Special:FilePath/Jaflong.jpg")
+        center/cover fixed;
 }
+
 
 .bg::after{
- content:"";
- position:absolute;
- inset:0;
- background:radial-gradient(circle at center,transparent 20%,rgba(0,0,0,.65));
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 20%,
+            rgba(0,0,0,.65)
+        );
 }
 
-/* LOADER */
+
+/* =========================
+   LOADER
+========================= */
 
 #loader{
- position:fixed;
- inset:0;
- z-index:9999;
- display:flex;
- justify-content:center;
- align-items:center;
- flex-direction:column;
- background:#020b08;
- transition:1s;
+    position:fixed;
+    inset:0;
+    z-index:99999;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    background:#020b08;
+
+    transition:1s ease;
 }
+
 
 #loader.hide{
- opacity:0;
- visibility:hidden;
+    opacity:0;
+    visibility:hidden;
 }
+
 
 .loader-icon{
- font-size:65px;
- animation:pulse 1.2s infinite;
+    font-size:65px;
+    animation:pulse 1.2s infinite;
 }
+
 
 .loader-line{
- width:170px;
- height:2px;
- background:#17362a;
- margin-top:25px;
- overflow:hidden;
+    width:170px;
+    height:2px;
+
+    background:#17362a;
+
+    margin-top:25px;
+
+    overflow:hidden;
 }
+
 
 .loader-line span{
- display:block;
- width:0;
- height:100%;
- background:var(--green);
- animation:load 2s forwards;
+    display:block;
+
+    width:0;
+    height:100%;
+
+    background:var(--green);
+
+    animation:load 2s forwards;
 }
+
 
 .loader-text{
- margin-top:15px;
- font-size:11px;
- letter-spacing:4px;
- color:#91a69e;
+    margin-top:15px;
+
+    font-size:11px;
+    letter-spacing:4px;
+
+    color:#91a69e;
 }
+
 
 @keyframes load{
- to{width:100%}
+    to{
+        width:100%;
+    }
 }
+
 
 @keyframes pulse{
- 50%{transform:scale(1.15)}
+    50%{
+        transform:scale(1.15);
+    }
 }
 
-/* FLOATING LEAVES */
+
+/* =========================
+   FLOATING LEAVES
+========================= */
 
 .leaf{
- position:fixed;
- top:-50px;
- z-index:2;
- pointer-events:none;
- opacity:.55;
- animation:fall linear infinite;
+    position:fixed;
+    top:-50px;
+
+    z-index:2;
+
+    pointer-events:none;
+
+    opacity:.55;
+
+    animation:fall linear infinite;
 }
+
 
 @keyframes fall{
- from{
-  transform:translateY(-50px) rotate(0);
- }
- to{
-  transform:translateY(110vh) rotate(420deg);
- }
+
+    from{
+        transform:
+            translateY(-50px)
+            rotate(0);
+    }
+
+    to{
+        transform:
+            translateY(110vh)
+            rotate(420deg);
+    }
+
 }
 
-/* HERO */
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
- min-height:100vh;
- display:flex;
- justify-content:center;
- align-items:center;
- text-align:center;
- padding:30px 20px;
- position:relative;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:30px 20px;
+
+    position:relative;
 }
+
 
 .hero-inner{
- max-width:1000px;
- animation:heroIn 1.6s ease;
+    max-width:1000px;
+
+    animation:heroIn 1.6s ease;
 }
+
 
 @keyframes heroIn{
- from{
-  opacity:0;
-  transform:translateY(60px);
- }
- to{
-  opacity:1;
-  transform:none;
- }
+
+    from{
+        opacity:0;
+        transform:translateY(60px);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
 }
+
 
 .chem{
- font-size:70px;
- animation:floatIcon 3s infinite ease-in-out;
+    font-size:70px;
+
+    animation:
+        floatIcon
+        3s
+        infinite
+        ease-in-out;
 }
+
 
 @keyframes floatIcon{
- 50%{
-  transform:translateY(-12px) rotate(5deg);
- }
+
+    50%{
+        transform:
+            translateY(-12px)
+            rotate(5deg);
+    }
+
 }
+
 
 .hero h1{
- font-size:clamp(42px,8vw,92px);
- line-height:.98;
- font-weight:800;
- letter-spacing:-3px;
+    font-size:
+        clamp(
+            42px,
+            8vw,
+            92px
+        );
 
- background:
- linear-gradient(110deg,#fff,#9effd4,#fff);
+    line-height:.98;
 
- background-size:200%;
+    font-weight:800;
 
- -webkit-background-clip:text;
- color:transparent;
+    letter-spacing:-3px;
 
- animation:shine 5s linear infinite;
+    background:
+        linear-gradient(
+            110deg,
+            #fff,
+            #9effd4,
+            #fff
+        );
+
+    background-size:200%;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+    animation:
+        shine
+        5s
+        linear
+        infinite;
 }
+
 
 @keyframes shine{
- to{
-  background-position:200%;
- }
+
+    to{
+        background-position:200%;
+    }
+
 }
+
 
 .hero h2{
- margin-top:25px;
- font-size:25px;
- font-weight:500;
+    margin-top:25px;
+
+    font-size:25px;
+
+    font-weight:500;
 }
+
 
 .dept{
- margin-top:7px;
- color:var(--green);
- font-size:17px;
+    margin-top:7px;
+
+    color:var(--green);
+
+    font-size:17px;
 }
+
 
 .meta{
- margin-top:28px;
- display:flex;
- justify-content:center;
- flex-wrap:wrap;
- gap:10px;
+    margin-top:28px;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
 }
+
 
 .pill{
- padding:10px 18px;
- border-radius:100px;
- border:1px solid var(--line);
- background:rgba(255,255,255,.06);
- backdrop-filter:blur(12px);
+    padding:10px 18px;
+
+    border-radius:100px;
+
+    border:1px solid var(--line);
+
+    background:
+        rgba(255,255,255,.06);
+
+    backdrop-filter:blur(12px);
 }
+
 
 .scroll{
- margin-top:65px;
- color:#91aaa1;
- font-size:11px;
- letter-spacing:4px;
- animation:scrollPulse 2s infinite;
+    margin-top:65px;
+
+    color:#91aaa1;
+
+    font-size:11px;
+
+    letter-spacing:4px;
+
+    animation:
+        scrollPulse
+        2s
+        infinite;
 }
+
 
 @keyframes scrollPulse{
- 50%{opacity:.3}
+
+    50%{
+        opacity:.3;
+    }
+
 }
 
-/* BUS */
+
+/* =========================
+   MOVING BUS
+========================= */
 
 .road{
- position:absolute;
- bottom:0;
- left:0;
- width:100%;
- height:90px;
- overflow:hidden;
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:100%;
+    height:100px;
+
+    overflow:hidden;
+
+    pointer-events:none;
 }
+
 
 .road-line{
- position:absolute;
- bottom:20px;
- width:100%;
- height:2px;
- background:
- repeating-linear-gradient(
- 90deg,
- transparent 0 35px,
- rgba(255,255,255,.35) 35px 75px
- );
+    position:absolute;
+
+    left:0;
+    bottom:20px;
+
+    width:100%;
+    height:3px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 35px,
+            rgba(255,255,255,.35) 35px 75px
+        );
 }
- }
- 
+
+
 .bus{
     position:absolute;
+
     bottom:27px;
-    left:-150px;
+    left:0;
+
     font-size:65px;
-    animation: busMove 25s linear infinite;
-    transform:scaleX(-1);
+
+    transform:
+        translateX(-120px)
+        scaleX(-1);
+
+    animation:
+        busRun
+        12s
+        linear
+        infinite;
+
+    will-change:transform;
+
+    z-index:5;
 }
 
-@keyframes busMove{
- to{
-  left:110%;
- }
+
+@keyframes busRun{
+
+    0%{
+        transform:
+            translateX(-120px)
+            scaleX(-1);
+    }
+
+    100%{
+        transform:
+            translateX(calc(100vw + 120px))
+            scaleX(-1);
+    }
+
 }
 
-/* NAV */
+
+/* =========================
+   NAVIGATION
+========================= */
 
 .nav{
- position:sticky;
- top:0;
- z-index:100;
- background:rgba(2,15,10,.8);
- backdrop-filter:blur(18px);
- border-bottom:1px solid var(--line);
+    position:sticky;
+
+    top:0;
+
+    z-index:5000;
+
+    background:
+        rgba(2,15,10,.88);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:
+        1px solid var(--line);
 }
+
 
 .nav-inner{
- width:min(1100px,94%);
- margin:auto;
- display:flex;
- justify-content:center;
- gap:7px;
- padding:10px;
- overflow-x:auto;
+    width:min(1100px,94%);
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:10px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
 }
 
-.nav a{
- color:#b7cbc3;
- text-decoration:none;
- white-space:nowrap;
- padding:9px 15px;
- border-radius:30px;
- font-size:13px;
- transition:.3s;
+
+.nav-inner::-webkit-scrollbar{
+    display:none;
 }
+
+
+.nav a{
+    color:#b7cbc3;
+
+    text-decoration:none;
+
+    white-space:nowrap;
+
+    padding:9px 15px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    transition:
+        .3s ease;
+}
+
 
 .nav a:hover,
 .nav a.active{
- background:var(--green);
- color:#06150f;
+    background:var(--green);
+
+    color:#06150f;
+
+    transform:translateY(-2px);
 }
 
-/* COMMON */
+
+/* CONFIRM NAV BUTTON */
+
+.nav .confirm-nav{
+    background:
+        linear-gradient(
+            135deg,
+            #00c853,
+            #00a844
+        );
+
+    color:#fff;
+
+    font-weight:800;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,200,83,.30);
+}
+
+
+.nav .confirm-nav:hover{
+    background:
+        linear-gradient(
+            135deg,
+            #00e676,
+            #00b84a
+        );
+
+    color:#fff;
+
+    transform:
+        translateY(-2px)
+        scale(1.04);
+
+    box-shadow:
+        0 8px 28px
+        rgba(0,200,83,.45);
+}
+
+
+/* =========================
+   COMMON
+========================= */
 
 section{
- padding:90px 0;
+    padding:90px 0;
 }
+
 
 .container{
- width:min(1100px,92%);
- margin:auto;
+    width:min(1100px,92%);
+
+    margin:auto;
 }
+
 
 .section-heading{
- text-align:center;
- margin-bottom:50px;
+    text-align:center;
+
+    margin-bottom:50px;
 }
+
 
 .kicker{
- color:var(--green);
- font-size:12px;
- letter-spacing:4px;
- text-transform:uppercase;
+    color:var(--green);
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
 }
+
 
 .section-heading h2{
- margin-top:10px;
- font-size:clamp(30px,5vw,48px);
+    margin-top:10px;
+
+    font-size:
+        clamp(
+            30px,
+            5vw,
+            48px
+        );
 }
+
 
 .section-heading p{
- margin-top:10px;
- color:#93aaa2;
+    margin-top:10px;
+
+    color:#93aaa2;
 }
+
 
 .card{
- padding:30px;
- border-radius:28px;
- border:1px solid var(--line);
- background:var(--glass);
- backdrop-filter:blur(16px);
- box-shadow:0 25px 70px rgba(0,0,0,.22);
+    padding:30px;
+
+    border-radius:28px;
+
+    border:
+        1px solid var(--line);
+
+    background:var(--glass);
+
+    backdrop-filter:blur(16px);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.22);
 }
+
 
 .reveal{
- opacity:0;
- transform:translateY(60px);
- transition:1s ease;
+    opacity:0;
+
+    transform:
+        translateY(60px);
+
+    transition:
+        1s ease;
 }
+
 
 .reveal.visible{
- opacity:1;
- transform:none;
+    opacity:1;
+
+    transform:none;
 }
 
-/* BUDGET */
+
+/* =========================
+   BUDGET
+========================= */
 
 .budget{
- display:grid;
- grid-template-columns:
- repeat(auto-fit,minmax(210px,1fr));
- gap:15px;
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px,1fr)
+        );
+
+    gap:15px;
 }
+
 
 .price{
- text-align:center;
- padding:28px 15px;
- background:rgba(255,255,255,.045);
- border:1px solid var(--line);
- border-radius:22px;
- transition:.4s;
+    text-align:center;
+
+    padding:28px 15px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid var(--line);
+
+    border-radius:22px;
+
+    transition:.4s;
 }
+
 
 .price:hover{
- transform:translateY(-8px);
- border-color:rgba(141,255,209,.4);
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(141,255,209,.4);
 }
+
 
 .price span{
- color:#9eb2aa;
- font-size:13px;
+    color:#9eb2aa;
+
+    font-size:13px;
 }
+
 
 .price strong{
- display:block;
- color:var(--green);
- font-size:29px;
- margin-top:8px;
+    display:block;
+
+    color:var(--green);
+
+    font-size:29px;
+
+    margin-top:8px;
 }
 
-/* DAY */
+
+/* =========================
+   DAY
+========================= */
 
 .day{
- margin-bottom:70px;
+    margin-bottom:70px;
 }
+
 
 .day-head{
- display:flex;
- align-items:center;
- gap:15px;
- margin-bottom:25px;
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:25px;
 }
+
 
 .day-number{
- width:55px;
- height:55px;
- border-radius:50%;
- display:grid;
- place-items:center;
- background:var(--green);
- color:#052017;
- font-weight:800;
- flex-shrink:0;
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    background:var(--green);
+
+    color:#052017;
+
+    font-weight:800;
+
+    flex-shrink:0;
 }
+
 
 .day-head h3{
- font-size:28px;
+    font-size:28px;
 }
+
 
 .day-date{
- color:#8fa79e;
- font-size:13px;
- margin-top:3px;
+    color:#8fa79e;
+
+    font-size:13px;
+
+    margin-top:3px;
 }
 
-/* PLACES */
+
+/* =========================
+   PLACES
+========================= */
 
 .places{
- display:grid;
- grid-template-columns:
- repeat(auto-fit,minmax(250px,1fr));
- gap:15px;
- margin-top:25px;
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px,1fr)
+        );
+
+    gap:15px;
+
+    margin-top:25px;
 }
+
 
 .place{
- position:relative;
- min-height:240px;
- overflow:hidden;
- border-radius:22px;
- border:1px solid var(--line);
- background:#07140f;
+    position:relative;
+
+    min-height:240px;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    border:
+        1px solid var(--line);
+
+    background:#07140f;
 }
+
 
 .place img{
- width:100%;
- height:100%;
- min-height:240px;
- object-fit:cover;
- transition:1s;
+    width:100%;
+
+    height:100%;
+
+    min-height:240px;
+
+    object-fit:cover;
+
+    transition:1s;
 }
+
 
 .place::after{
- content:"";
- position:absolute;
- inset:0;
- background:
- linear-gradient(
-  transparent 30%,
-  rgba(0,0,0,.88)
- );
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            transparent 30%,
+            rgba(0,0,0,.88)
+        );
 }
+
 
 .place:hover img{
- transform:scale(1.1);
+    transform:scale(1.1);
 }
+
 
 .place-title{
- position:absolute;
- z-index:2;
- bottom:18px;
- left:18px;
- right:10px;
- font-size:18px;
- font-weight:600;
+    position:absolute;
+
+    z-index:2;
+
+    bottom:18px;
+
+    left:18px;
+
+    right:10px;
+
+    font-size:18px;
+
+    font-weight:600;
 }
+
 
 .place-credit{
- position:absolute;
- z-index:3;
- right:10px;
- top:10px;
- font-size:9px;
- color:#fff;
- background:rgba(0,0,0,.55);
- padding:5px 8px;
- border-radius:20px;
+    position:absolute;
+
+    z-index:3;
+
+    right:10px;
+
+    top:10px;
+
+    font-size:9px;
+
+    color:#fff;
+
+    background:
+        rgba(0,0,0,.55);
+
+    padding:5px 8px;
+
+    border-radius:20px;
 }
 
-/* INFO */
+
+/* =========================
+   INFO
+========================= */
 
 .info{
- margin-top:25px;
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:20px;
+    margin-top:25px;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:20px;
 }
+
 
 .info-box{
- padding:22px;
- background:rgba(255,255,255,.035);
- border-radius:20px;
- border:1px solid var(--line);
+    padding:22px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border-radius:20px;
+
+    border:
+        1px solid var(--line);
 }
+
 
 .info-box h4{
- color:var(--green);
- margin-bottom:12px;
+    color:var(--green);
+
+    margin-bottom:12px;
 }
+
 
 .info-box p{
- color:#d0ded9;
- line-height:1.9;
+    color:#d0ded9;
+
+    line-height:1.9;
 }
 
-/* SPECIAL */
+
+/* =========================
+   SPECIAL
+========================= */
 
 .special{
- min-height:370px;
- display:flex;
- flex-direction:column;
- justify-content:center;
- align-items:center;
- text-align:center;
+    min-height:370px;
 
- background:
- linear-gradient(
- rgba(0,15,10,.4),
- rgba(0,15,10,.85)
- ),
- url("https://commons.wikimedia.org/wiki/Special:FilePath/Bichnakandi%2C_Sylhet.jpg")
- center/cover;
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            rgba(0,15,10,.4),
+            rgba(0,15,10,.85)
+        ),
+        url(
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Bichnakandi%2C_Sylhet.jpg"
+        )
+        center/cover;
 }
+
 
 .special h2{
- font-size:42px;
- margin-top:10px;
+    font-size:42px;
+
+    margin-top:10px;
 }
+
 
 .special p{
- max-width:650px;
- margin-top:15px;
- color:#d1dfda;
- line-height:1.9;
+    max-width:650px;
+
+    margin-top:15px;
+
+    color:#d1dfda;
+
+    line-height:1.9;
 }
 
-/* GALLERY */
+
+/* =========================
+   GALLERY
+========================= */
 
 .gallery{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- grid-auto-rows:190px;
- gap:12px;
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    grid-auto-rows:190px;
+
+    gap:12px;
 }
+
 
 .gallery-item{
- position:relative;
- overflow:hidden;
- border-radius:18px;
- cursor:pointer;
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    cursor:pointer;
 }
+
 
 .gallery-item:first-child{
- grid-column:span 2;
- grid-row:span 2;
+    grid-column:span 2;
+
+    grid-row:span 2;
 }
+
 
 .gallery-item img{
- width:100%;
- height:100%;
- object-fit:cover;
- transition:.8s;
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.8s;
 }
+
 
 .gallery-item:hover img{
- transform:scale(1.1);
- filter:brightness(1.15);
+    transform:scale(1.1);
+
+    filter:brightness(1.15);
 }
 
-/* LIGHTBOX */
+
+/* =========================
+   LIGHTBOX
+========================= */
 
 .lightbox{
- position:fixed;
- inset:0;
- z-index:1000;
- display:none;
- justify-content:center;
- align-items:center;
- background:rgba(0,0,0,.94);
- padding:20px;
+    position:fixed;
+
+    inset:0;
+
+    z-index:10000;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+        rgba(0,0,0,.94);
+
+    padding:20px;
 }
+
 
 .lightbox.open{
- display:flex;
+    display:flex;
 }
+
 
 .lightbox img{
- max-width:95%;
- max-height:85%;
- border-radius:15px;
+    max-width:95%;
+
+    max-height:85%;
+
+    border-radius:15px;
 }
+
 
 .close{
- position:absolute;
- top:15px;
- right:25px;
- font-size:38px;
- cursor:pointer;
+    position:absolute;
+
+    top:15px;
+
+    right:25px;
+
+    font-size:38px;
+
+    cursor:pointer;
 }
 
-/* PACKAGE */
+
+/* =========================
+   PACKAGE
+========================= */
 
 .package-list{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:12px;
 }
+
 
 .package-list div{
- padding:15px;
- background:rgba(255,255,255,.035);
- border-radius:14px;
- color:#d7e4df;
+    padding:15px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border-radius:14px;
+
+    color:#d7e4df;
 }
 
-/* CONTACT */
+
+/* =========================
+   BOOK NOW
+========================= */
+
+.booking-box{
+    text-align:center;
+
+    padding:40px 25px;
+}
+
+
+.booking-box h2{
+    font-size:
+        clamp(
+            30px,
+            6vw,
+            45px
+        );
+}
+
+
+.booking-box p{
+    margin-top:12px;
+
+    color:#c8d8d2;
+
+    line-height:1.8;
+}
+
+
+.book-btn{
+    margin-top:25px;
+
+    padding:14px 30px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8dffd1,
+            #42e8a4
+        );
+
+    color:#04150e;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+
+.book-btn:hover{
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+        0 10px 30px
+        rgba(141,255,209,.25);
+}
+
+
+/* BOOK POPUP */
+
+.popup{
+    position:fixed;
+
+    inset:0;
+
+    z-index:20000;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    background:
+        rgba(0,0,0,.78);
+
+    backdrop-filter:blur(10px);
+}
+
+
+.popup.show{
+    display:flex;
+}
+
+
+.popup-card{
+    width:min(450px,94%);
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:
+        rgba(7,25,18,.96);
+
+    border:
+        1px solid var(--line);
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.5);
+}
+
+
+.popup-card h3{
+    font-size:25px;
+
+    color:var(--green);
+}
+
+
+.popup-card p{
+    margin-top:18px;
+
+    color:#d5e2dd;
+
+    line-height:1.8;
+}
+
+
+.popup-close{
+    margin-top:25px;
+
+    padding:10px 25px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.1);
+
+    color:#fff;
+
+    cursor:pointer;
+}
+
+
+/* =========================
+   CONFIRMATION
+========================= */
+
+.confirmation-card{
+    text-align:center;
+
+    padding:45px 25px;
+}
+
+
+.confirmation-card h2{
+    margin-top:10px;
+
+    font-size:
+        clamp(
+            28px,
+            6vw,
+            45px
+        );
+}
+
+
+.confirmation-text{
+    margin-top:15px;
+
+    color:#c8d8d2;
+
+    line-height:1.8;
+}
+
+
+.confirm-btn{
+    margin-top:25px;
+
+    padding:15px 35px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00c853,
+            #00a844
+        );
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,200,83,.25);
+}
+
+
+.confirm-btn:hover:not(:disabled){
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,200,83,.4);
+}
+
+
+.confirm-btn:disabled{
+    opacity:.65;
+
+    cursor:not-allowed;
+}
+
+
+.confirm-message{
+    min-height:25px;
+
+    margin-top:15px;
+
+    color:var(--green);
+
+    font-size:14px;
+}
+
+
+.confirm-count-box{
+    margin-top:35px;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid var(--line);
+}
+
+
+.confirm-count-box h3{
+    color:#fff;
+
+    font-size:20px;
+}
+
+
+.confirm-count{
+    display:block;
+
+    margin-top:10px;
+
+    color:var(--green);
+
+    font-size:45px;
+
+    font-weight:800;
+}
+
+
+.confirm-count-label{
+    color:#9eb2aa;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
 
 .contact{
- text-align:center;
- padding:100px 20px;
+    text-align:center;
+
+    padding:100px 20px;
 }
+
 
 .contact h2{
- font-size:42px;
+    font-size:42px;
 }
+
 
 .phone{
- display:inline-block;
- margin-top:20px;
- padding:15px 28px;
- background:var(--green);
- color:#04150e;
- border-radius:50px;
- text-decoration:none;
- font-weight:700;
- transition:.3s;
+    display:inline-block;
+
+    margin-top:20px;
+
+    padding:15px 28px;
+
+    background:var(--green);
+
+    color:#04150e;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    transition:.3s;
 }
+
 
 .phone:hover{
- transform:scale(1.06);
+    transform:scale(1.06);
 }
 
-/* MUSIC */
+
+/* =========================
+   MUSIC
+========================= */
 
 .music{
- position:fixed;
- right:20px;
- bottom:20px;
- z-index:500;
+    position:fixed;
 
- width:52px;
- height:52px;
+    right:20px;
 
- border-radius:50%;
- border:1px solid rgba(255,255,255,.2);
+    bottom:20px;
 
- background:rgba(4,20,14,.85);
+    z-index:6000;
 
- color:white;
- cursor:pointer;
+    width:52px;
 
- backdrop-filter:blur(12px);
+    height:52px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    background:
+        rgba(4,20,14,.85);
+
+    color:white;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(12px);
 }
+
 
 .music.playing{
- color:var(--green);
- box-shadow:
- 0 0 25px rgba(141,255,209,.25);
+    color:var(--green);
+
+    box-shadow:
+        0 0 25px
+        rgba(141,255,209,.25);
 }
 
-/* MOBILE */
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+
+    padding:50px 20px;
+
+    color:#9eb2aa;
+
+    font-size:13px;
+
+    line-height:1.8;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(0,0,0,.25);
+}
+
+
+/* =========================
+   DEVELOPER CREDIT
+========================= */
+
+.developer-credit{
+    text-align:center;
+
+    padding:25px 15px 30px;
+
+    font-size:14px;
+
+    color:
+        rgba(255,255,255,.65);
+
+    letter-spacing:1px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    background:
+        rgba(0,0,0,.25);
+}
+
+
+.developer-credit span{
+    color:#fff;
+
+    font-weight:600;
+
+    text-shadow:
+        0 0 12px
+        rgba(255,255,255,.35);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px){
 
- .hero h1{
-  letter-spacing:-2px;
- }
+    .hero h1{
+        letter-spacing:-2px;
+    }
 
- .hero h2{
-  font-size:20px;
- }
 
- .info,
- .package-list{
-  grid-template-columns:1fr;
- }
+    .hero h2{
+        font-size:20px;
+    }
 
- .gallery{
-  grid-template-columns:1fr 1fr;
-  grid-auto-rows:150px;
- }
 
- .gallery-item:first-child{
-  grid-column:span 2;
-  grid-row:span 2;
- }
+    .info,
+    .package-list{
+        grid-template-columns:1fr;
+    }
 
- .day-head h3{
-  font-size:22px;
- }
 
- .card{
-  padding:20px;
- }
+    .gallery{
+        grid-template-columns:1fr 1fr;
 
- .bus{
-  font-size:50px;
- }
+        grid-auto-rows:150px;
+    }
+
+
+    .gallery-item:first-child{
+        grid-column:span 2;
+
+        grid-row:span 2;
+    }
+
+
+    .day-head h3{
+        font-size:22px;
+    }
+
+
+    .card{
+        padding:20px;
+    }
+
+
+    .bus{
+        font-size:50px;
+    }
+
+
+    .nav-inner{
+        justify-content:flex-start;
+    }
+
+
+    .confirm-count{
+        font-size:38px;
+    }
 
 }
+
 </style>
+
 </head>
 
 
 <body>
 
-<!-- LOADING -->
+
+<!-- =========================
+     LOADING
+========================= -->
 
 <div id="loader">
 
- <div class="loader-icon">🧪</div>
+    <div class="loader-icon">
+        🧪
+    </div>
 
- <div class="loader-line">
-  <span></span>
- </div>
+    <div class="loader-line">
+        <span></span>
+    </div>
 
- <div class="loader-text">
-  PREPARING THE ESCAPE...
- </div>
+    <div class="loader-text">
+        PREPARING THE ESCAPE...
+    </div>
 
 </div>
 
@@ -750,1683 +1623,2079 @@ section{
 <div class="bg"></div>
 
 
-<!-- FLOATING LEAVES -->
+<!-- =========================
+     FLOATING LEAVES
+========================= -->
 
-<div class="leaf" style="left:8%;animation-duration:13s">🍃</div>
-<div class="leaf" style="left:22%;animation-duration:17s;animation-delay:3s">🍂</div>
-<div class="leaf" style="left:42%;animation-duration:14s;animation-delay:6s">🍃</div>
-<div class="leaf" style="left:65%;animation-duration:19s;animation-delay:1s">🍂</div>
-<div class="leaf" style="left:82%;animation-duration:15s;animation-delay:5s">🍃</div>
+<div class="leaf"
+     style="left:8%;animation-duration:13s">
+    🍃
+</div>
+
+<div class="leaf"
+     style="left:22%;animation-duration:17s;animation-delay:3s">
+    🍂
+</div>
+
+<div class="leaf"
+     style="left:42%;animation-duration:14s;animation-delay:6s">
+    🍃
+</div>
+
+<div class="leaf"
+     style="left:65%;animation-duration:19s;animation-delay:1s">
+    🍂
+</div>
+
+<div class="leaf"
+     style="left:82%;animation-duration:15s;animation-delay:5s">
+    🍃
+</div>
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
 <header class="hero" id="home">
 
- <div class="hero-inner">
+    <div class="hero-inner">
 
-  <div class="chem">
-   🧪
-  </div>
+        <div class="chem">
+            🧪
+        </div>
 
-  <h1>
-   A Chemical Escape<br>
-   to Sylhet
-  </h1>
+        <h1>
+            A Chemical Escape<br>
+            to Sylhet
+        </h1>
 
-  <h2>
-   Government BM College
-  </h2>
+        <h2>
+            Government BM College
+        </h2>
 
-  <div class="dept">
-   Chemistry Department
-  </div>
+        <div class="dept">
+            Chemistry Department
+        </div>
 
-  <div class="meta">
+        <div class="meta">
 
-   <div class="pill">
-    Department Tour 2026
-   </div>
+            <div class="pill">
+                Department Tour 2026
+            </div>
 
-   <div class="pill">
-    07 — 11 October
-   </div>
+            <div class="pill">
+                07 — 11 October
+            </div>
 
-   <div class="pill">
-    Sylhet • Sreemangal
-   </div>
+            <div class="pill">
+                Sylhet • Sreemangal
+            </div>
 
-  </div>
+        </div>
 
-  <div class="scroll">
-   SCROLL TO EXPLORE ↓
-  </div>
+        <div class="scroll">
+            SCROLL TO EXPLORE ↓
+        </div>
 
- </div>
+    </div>
 
 
- <div class="road">
+    <!-- MOVING BUS -->
 
-  <div class="road-line"></div>
+    <div class="road">
 
-  <div class="bus">
-   🚌
-  </div>
+        <div class="road-line"></div>
 
- </div>
+        <div class="bus">
+            🚌
+        </div>
+
+    </div>
 
 </header>
 
 
-<!-- NAV -->
+<!-- =========================
+     NAVIGATION
+========================= -->
 
 <nav class="nav">
 
- <div class="nav-inner">
+    <div class="nav-inner">
 
-  <a href="#home">Home</a>
-  <a href="#budget">Budget</a>
-  <a href="#day1">Day 01</a>
-  <a href="#day2">Day 02</a>
-  <a href="#day3">Day 03</a>
-  <a href="#special">Bichanakandi</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#contact">Contact</a>
+        <a href="#home">
+            Home
+        </a>
 
- </div>
+        <a href="#budget">
+            Budget
+        </a>
+
+        <a href="#day1">
+            Day 01
+        </a>
+
+        <a href="#day2">
+            Day 02
+        </a>
+
+        <a href="#day3">
+            Day 03
+        </a>
+
+        <a href="#special">
+            Bichanakandi
+        </a>
+
+        <a href="#gallery">
+            Gallery
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
+
+        <a href="#confirmation"
+           class="confirm-nav">
+            🎟️ Confirm
+        </a>
+
+    </div>
 
 </nav>
 
 
-<!-- BUDGET -->
+<!-- =========================
+     BUDGET
+========================= -->
 
 <section id="budget">
 
- <div class="container">
+    <div class="container">
 
-  <div class="section-heading reveal">
+        <div class="section-heading reveal">
 
-   <div class="kicker">
-    THE PLAN
-   </div>
+            <div class="kicker">
+                THE PLAN
+            </div>
 
-   <h2>
-    Tour Budget
-   </h2>
+            <h2>
+                Tour Budget
+            </h2>
 
-   <p>
-    Everything arranged for the journey.
-   </p>
+            <p>
+                Everything arranged for the journey.
+            </p>
 
-  </div>
-
-
-  <div class="budget">
-
-   <div class="price reveal">
-
-    <span>
-     মোট বাজেট
-    </span>
-
-    <strong>
-     ৳5250
-    </strong>
-
-   </div>
+        </div>
 
 
-   <div class="price reveal">
+        <div class="budget">
 
-    <span>
-     ডিপার্টমেন্ট ভর্তুকি
-    </span>
+            <div class="price reveal">
 
-    <strong>
-     ৳500
-    </strong>
+                <span>
+                    মোট বাজেট
+                </span>
 
-   </div>
+                <strong>
+                    ৳5250
+                </strong>
+
+            </div>
 
 
-   <div class="price reveal">
+            <div class="price reveal">
 
-    <span>
-     স্টুডেন্ট ফি
-    </span>
+                <span>
+                    ডিপার্টমেন্ট ভর্তুকি
+                </span>
 
-    <strong>
-     ৳4700
-    </strong>
+                <strong>
+                    ৳500
+                </strong>
 
-   </div>
+            </div>
 
-  </div>
 
- </div>
+            <div class="price reveal">
+
+                <span>
+                    স্টুডেন্ট ফি
+                </span>
+
+                <strong>
+                    ৳4700
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- DAY 0 -->
+<!-- =========================
+     DAY 0
+========================= -->
 
 <section>
 
- <div class="container">
+    <div class="container">
 
-  <div class="card reveal">
+        <div class="card reveal">
 
-   <div class="day-head">
+            <div class="day-head">
 
-    <div class="day-number">
-     00
+                <div class="day-number">
+                    00
+                </div>
+
+                <div>
+
+                    <h3>
+                        যাত্রা শুরু
+                    </h3>
+
+                    <div class="day-date">
+                        07 October 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p>
+                🚌 <b>বরিশাল → সিলেট</b>
+
+                <br><br>
+
+                🕗 ক্যাম্পাস থেকে রওনা — রাত ৮:০০টা
+
+                <br>
+
+                🚌 আসা-যাওয়া রিজার্ভ বাস
+            </p>
+
+
+            <div class="info">
+
+                <div class="info-box">
+
+                    <h4>
+                        🍽️ রাতের খাবার
+                    </h4>
+
+                    <p>
+                        ভাত, সোনালী, সবজি, ডাল
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        🌙 Tonight
+                    </h4>
+
+                    <p>
+                        সিলেটের উদ্দেশ্যে রাতের যাত্রা।
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-
-    <div>
-
-     <h3>
-      যাত্রা শুরু
-     </h3>
-
-     <div class="day-date">
-      07 October 2026
-     </div>
-
-    </div>
-
-   </div>
-
-
-   <p>
-    🚌 <b>বরিশাল → সিলেট</b>
-    <br><br>
-    🕗 ক্যাম্পাস থেকে রওনা — রাত ৮:০০টা
-    <br>
-    🚌 আসা-যাওয়া রিজার্ভ বাস
-   </p>
-
-
-   <div class="info">
-
-    <div class="info-box">
-
-     <h4>
-      🍽️ রাতের খাবার
-     </h4>
-
-     <p>
-      ভাত, সোনালী, সবজি, ডাল
-     </p>
-
-    </div>
-
-
-    <div class="info-box">
-
-     <h4>
-      🌙 Tonight
-     </h4>
-
-     <p>
-      সিলেটের উদ্দেশ্যে রাতের যাত্রা।
-     </p>
-
-    </div>
-
-   </div>
-
-  </div>
-
- </div>
 
 </section>
 
 
-<!-- DAY 1 -->
+<!-- =========================
+     DAY 1
+========================= -->
 
 <section id="day1">
 
- <div class="container">
+    <div class="container">
 
-  <div class="section-heading reveal">
+        <div class="section-heading reveal">
 
-   <div class="kicker">
-    DAY ONE
-   </div>
+            <div class="kicker">
+                DAY ONE
+            </div>
 
-   <h2>
-    🌿 Jaflong & Lalakhal
-   </h2>
+            <h2>
+                🌿 Jaflong & Lalakhal
+            </h2>
 
-   <p>
-    Mountains, rivers & blue waters.
-   </p>
+            <p>
+                Mountains, rivers & blue waters.
+            </p>
 
-  </div>
+        </div>
 
 
-  <div class="day card reveal">
+        <div class="day card reveal">
 
-   <div class="day-head">
+            <div class="day-head">
 
-    <div class="day-number">
-     01
+                <div class="day-number">
+                    01
+                </div>
+
+                <div>
+
+                    <h3>
+                        জাফলং — লালাখাল
+                    </h3>
+
+                    <div class="day-date">
+                        08 October 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="places">
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Jaflong.jpg"
+                    alt="Jaflong Sylhet">
+
+                    <div class="place-title">
+                        🏞️ জাফলং
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Tamabil%20land%20customs%20station%2C%20Sylhet%20.jpg"
+                    alt="Tamabil Sylhet">
+
+                    <div class="place-title">
+                        🇧🇩 তামাবিল জিরো পয়েন্ট
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Tea%20garden%20at%20Sripur%20%281%29.jpg"
+                    alt="Sripur Tea Garden">
+
+                    <div class="place-title">
+                        🍃 শ্রীপুর চা বাগান
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Lalakhal%20Sylhet.jpg"
+                    alt="Lalakhal Sylhet">
+
+                    <div class="place-title">
+                        💙 লালাখাল
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Shrine%20of%20Hazrat%20Shah%20Paran%20Sylhet%20Bangladesh%2038.JPG"
+                    alt="Hazrat Shah Paran Shrine">
+
+                    <div class="place-title">
+                        🕌 হযরত শাহপরান (র.)-এর মাজার
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="info-box">
+
+                    <h4>
+                        📍 দর্শনীয় স্থান
+                    </h4>
+
+                    <p>
+                        জাফলং<br>
+                        তামাবিল জিরো পয়েন্ট<br>
+                        শ্রীপুর চা বাগান<br>
+                        লালাখাল — বাংলার নীল নদ<br>
+                        হযরত শাহপরান (র.)-এর মাজার
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        🍽️ খাবার
+                    </h4>
+
+                    <p>
+                        🌅 সকাল — চিকেন খিচুড়ি (পানসি)<br>
+                        ☀️ দুপুর — ভাত, সবজি, ভর্তা, সোনালী, ডাল<br>
+                        🌙 রাত — চিকেন বিরিয়ানি (পানসি)
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <p style="
+                margin-top:25px;
+                color:#a9c4b9;
+                line-height:1.8;
+            ">
+
+                🌙 দিনের ভ্রমণ শেষে সিলেট শহরে ফিরে
+                Grand Rose Garden হোটেলে চেক-ইন ও রাতযাপন।
+
+            </p>
+
+        </div>
+
     </div>
-
-    <div>
-
-     <h3>
-      জাফলং — লালাখাল
-     </h3>
-
-     <div class="day-date">
-      08 October 2026
-     </div>
-
-    </div>
-
-   </div>
-
-
-   <div class="places">
-
-
-    <!-- JAFLONG -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Jaflong.jpg"
-     alt="Jaflong Sylhet">
-
-     <div class="place-title">
-      🏞️ জাফলং
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- TAMABIL -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Tamabil%20land%20customs%20station%2C%20Sylhet%20.jpg"
-     alt="Tamabil Sylhet">
-
-     <div class="place-title">
-      🇧🇩 তামাবিল জিরো পয়েন্ট
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- SRIPUR -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Tea%20garden%20at%20Sripur%20%281%29.jpg"
-     alt="Sripur Tea Garden">
-
-     <div class="place-title">
-      🍃 শ্রীপুর চা বাগান
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- LALAKHAL -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Lalakhal%20Sylhet.jpg"
-     alt="Lalakhal Sylhet">
-
-     <div class="place-title">
-      💙 লালাখাল
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- SHAH PARAN -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Shrine%20of%20Hazrat%20Shah%20Paran%20Sylhet%20Bangladesh%2038.JPG"
-     alt="Hazrat Shah Paran Shrine">
-
-     <div class="place-title">
-      🕌 হযরত শাহপরান (র.)-এর মাজার
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-   </div>
-
-
-   <div class="info">
-
-
-    <div class="info-box">
-
-     <h4>
-      📍 দর্শনীয় স্থান
-     </h4>
-
-     <p>
-      জাফলং<br>
-      তামাবিল জিরো পয়েন্ট<br>
-      শ্রীপুর চা বাগান<br>
-      লালাখাল — বাংলার নীল নদ<br>
-      হযরত শাহপরান (র.)-এর মাজার
-     </p>
-
-    </div>
-
-
-    <div class="info-box">
-
-     <h4>
-      🍽️ খাবার
-     </h4>
-
-     <p>
-      🌅 সকাল — চিকেন খিচুড়ি (পানসি)<br>
-      ☀️ দুপুর — ভাত, সবজি, ভর্তা, সোনালী, ডাল<br>
-      🌙 রাত — চিকেন বিরিয়ানি (পানসি)
-     </p>
-
-    </div>
-
-   </div>
-
-
-   <p style="margin-top:25px;color:#a9c4b9;line-height:1.8">
-
-    🌙 দিনের ভ্রমণ শেষে সিলেট শহরে ফিরে
-    Grand Rose Garden হোটেলে চেক-ইন ও রাতযাপন।
-
-   </p>
-
-  </div>
-
- </div>
 
 </section>
 
 
-<!-- DAY 2 -->
+<!-- =========================
+     DAY 2
+========================= -->
 
 <section id="day2">
 
- <div class="container">
+    <div class="container">
 
-  <div class="section-heading reveal">
+        <div class="section-heading reveal">
 
-   <div class="kicker">
-    DAY TWO
-   </div>
+            <div class="kicker">
+                DAY TWO
+            </div>
 
-   <h2>
-    🌳 Ratargul & Sadapathor
-   </h2>
+            <h2>
+                🌳 Ratargul & Sadapathor
+            </h2>
 
-   <p>
-    Into the wild.
-   </p>
+            <p>
+                Into the wild.
+            </p>
 
-  </div>
+        </div>
 
 
-  <div class="day card reveal">
+        <div class="day card reveal">
 
-   <div class="day-head">
+            <div class="day-head">
 
-    <div class="day-number">
-     02
+                <div class="day-number">
+                    02
+                </div>
+
+                <div>
+
+                    <h3>
+                        রাতারগুল — সাদাপাথর
+                    </h3>
+
+                    <div class="day-date">
+                        09 October 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="places">
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Ratargul%20Swamp%20Forest%20in%20Sylhet.jpg"
+                    alt="Ratargul Swamp Forest">
+
+                    <div class="place-title">
+                        🌳 রাতারগুল সোয়াম্প ফরেস্ট
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Malnicherra%20Tea%20Garden%20%28Sylhet%29%20in%202021.03.jpg"
+                    alt="Malnicherra Tea Garden">
+
+                    <div class="place-title">
+                        🍃 মালনীছড়া চা বাগান
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Volagonj%20Sadapathor%2C%20Sylhet%2C%20Bangladesh.jpg"
+                    alt="Sadapathor Sylhet">
+
+                    <div class="place-title">
+                        🪨 সাদাপাথর
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="info-box">
+
+                    <h4>
+                        📍 দর্শনীয় স্থান
+                    </h4>
+
+                    <p>
+                        রাতারগুল সোয়াম্প ফরেস্ট<br>
+                        মালনীছড়া চা বাগান<br>
+                        সাদাপাথর
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        🍽️ খাবার
+                    </h4>
+
+                    <p>
+                        🌅 সকাল — পরাটা, ভাজি, ডিম (পানসি / পাস বায়)<br>
+                        ☀️ দুপুর — ভাত, মুরগি, সবজি, ডাল<br>
+                        🌙 রাত — পোলাও, খাসি, ঠান্ডা (পানসি)
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <p style="
+                margin-top:25px;
+                color:#a9c4b9;
+                line-height:1.8;
+            ">
+
+                🌙 দিনের ভ্রমণ শেষে হোটেলে ফিরে
+                বিশ্রাম ও রাতযাপন।
+
+            </p>
+
+        </div>
+
     </div>
-
-    <div>
-
-     <h3>
-      রাতারগুল — সাদাপাথর
-     </h3>
-
-     <div class="day-date">
-      09 October 2026
-     </div>
-
-    </div>
-
-   </div>
-
-
-   <div class="places">
-
-
-    <!-- RATARGUL -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Ratargul%20Swamp%20Forest%20in%20Sylhet.jpg"
-     alt="Ratargul Swamp Forest">
-
-     <div class="place-title">
-      🌳 রাতারগুল সোয়াম্প ফরেস্ট
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- MALNICHERRA -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Malnicherra%20Tea%20Garden%20%28Sylhet%29%20in%202021.03.jpg"
-     alt="Malnicherra Tea Garden">
-
-     <div class="place-title">
-      🍃 মালনীছড়া চা বাগান
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- SADAPATHOR -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Volagonj%20Sadapathor%2C%20Sylhet%2C%20Bangladesh.jpg"
-     alt="Sadapathor Sylhet">
-
-     <div class="place-title">
-      🪨 সাদাপাথর
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-   </div>
-
-
-   <div class="info">
-
-
-    <div class="info-box">
-
-     <h4>
-      📍 দর্শনীয় স্থান
-     </h4>
-
-     <p>
-      রাতারগুল সোয়াম্প ফরেস্ট<br>
-      মালনীছড়া চা বাগান<br>
-      সাদাপাথর
-     </p>
-
-    </div>
-
-
-    <div class="info-box">
-
-     <h4>
-      🍽️ খাবার
-     </h4>
-
-     <p>
-      🌅 সকাল — পরাটা, ভাজি, ডিম (পানসি / পাস বায়)<br>
-      ☀️ দুপুর — ভাত, মুরগি, সবজি, ডাল<br>
-      🌙 রাত — পোলাও, খাসি, ঠান্ডা (পানসি)
-     </p>
-
-    </div>
-
-   </div>
-
-
-   <p style="margin-top:25px;color:#a9c4b9;line-height:1.8">
-
-    🌙 দিনের ভ্রমণ শেষে হোটেলে ফিরে
-    বিশ্রাম ও রাতযাপন।
-
-   </p>
-
-  </div>
-
- </div>
 
 </section>
 
 
-<!-- DAY 3 -->
+<!-- =========================
+     DAY 3
+========================= -->
 
 <section id="day3">
 
- <div class="container">
+    <div class="container">
 
-  <div class="section-heading reveal">
+        <div class="section-heading reveal">
 
-   <div class="kicker">
-    DAY THREE
-   </div>
+            <div class="kicker">
+                DAY THREE
+            </div>
 
-   <h2>
-    🍃 Sreemangal
-   </h2>
+            <h2>
+                🍃 Sreemangal
+            </h2>
 
-   <p>
-    Tea gardens, lake & rainforest.
-   </p>
+            <p>
+                Tea gardens, lake & rainforest.
+            </p>
 
-  </div>
+        </div>
 
 
-  <div class="day card reveal">
+        <div class="day card reveal">
 
-   <div class="day-head">
+            <div class="day-head">
 
-    <div class="day-number">
-     03
+                <div class="day-number">
+                    03
+                </div>
+
+                <div>
+
+                    <h3>
+                        শ্রীমঙ্গল ভ্রমণ
+                    </h3>
+
+                    <div class="day-date">
+                        10 October 2026
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="places">
+
+
+                <div class="place">
+
+                    <div style="
+                        min-height:240px;
+                        height:100%;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        text-align:center;
+                        padding:25px;
+                        background:
+                        linear-gradient(
+                            135deg,
+                            #0c3325,
+                            #06140f
+                        );
+                    ">
+
+                        <div>
+
+                            <div style="font-size:45px">
+                                🍵
+                            </div>
+
+                            <h3 style="margin-top:10px">
+                                নূরজাহান চা বাগান
+                            </h3>
+
+                            <p style="
+                                margin-top:8px;
+                                color:#9eb8ad;
+                                font-size:12px;
+                                line-height:1.6;
+                            ">
+
+                                Noorjahan Tea Garden
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Madhabpur%20Lake%20reflection%20in%20Sreemangal.jpg"
+                    alt="Madhabpur Lake">
+
+                    <div class="place-title">
+                        🌊 মাধবপুর লেক
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Lawachara%20Forest.jpg"
+                    alt="Lawachara National Park">
+
+                    <div class="place-title">
+                        🌳 লাউয়াছড়া জাতীয় উদ্যান
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Boddhobhumi%2071%2C%20Sreemangal.jpg"
+                    alt="Boddhobhumi 71">
+
+                    <div class="place-title">
+                        🕊️ বধ্যভূমি ৭১ পার্ক
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+                <div class="place">
+
+                    <img
+                    src="https://commons.wikimedia.org/wiki/Special:FilePath/Adi%20nilkonto%20tea%20cabin%2C%20srimongol.jpg"
+                    alt="Adi Nilkantha">
+
+                    <div class="place-title">
+                        🫖 আদি নীলকণ্ঠ
+                    </div>
+
+                    <div class="place-credit">
+                        Wikimedia Commons
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="info-box">
+
+                    <h4>
+                        📍 দর্শনীয় স্থান
+                    </h4>
+
+                    <p>
+                        নূরজাহান চা বাগান<br>
+                        মাধবপুর লেক<br>
+                        লাউয়াছড়া জাতীয় উদ্যান<br>
+                        বধ্যভূমি ৭১ পার্ক<br>
+                        আদি নীলকণ্ঠ
+                    </p>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h4>
+                        🍽️ খাবার
+                    </h4>
+
+                    <p>
+                        🌅 সকাল — ডিম খিচুড়ি (পানসি শাখা)<br>
+                        ☀️ দুপুর — ভাত, সবজি, সোনালী, ডাল (হোটেল রিযিক)<br>
+                        🌙 রাত — চিকেন খিচুড়ি (হোটেল রিযিক)
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <p style="
+                margin-top:25px;
+                color:#a9c4b9;
+                line-height:1.8;
+            ">
+
+                🛺 সকল দর্শনীয় স্থানে চাঁদের গাড়িতে
+                আনা-নেওয়া করা হবে।
+
+                <br><br>
+
+                🌙 সব দর্শনীয় স্থান ঘুরে রাতে
+                বরিশালের উদ্দেশ্যে রওনা।
+
+            </p>
+
+        </div>
+
     </div>
-
-    <div>
-
-     <h3>
-      শ্রীমঙ্গল ভ্রমণ
-     </h3>
-
-     <div class="day-date">
-      10 October 2026
-     </div>
-
-    </div>
-
-   </div>
-
-
-   <div class="places">
-
-
-    <!-- NOORJAHAN -->
-
-    <div class="place">
-
-     <!--
-     Noorjahan Tea Estate-এর exact free-to-reuse
-     Wikimedia photo পাওয়া যায়নি 
-     -->
-
-     <div style="
-     min-height:240px;
-     display:flex;
-     align-items:center;
-     justify-content:center;
-     text-align:center;
-     padding:25px;
-     background:
-     linear-gradient(135deg,#0c3325,#06140f);
-     ">
-
-      <div>
-
-       <div style="font-size:45px">
-        🍵
-       </div>
-
-       <h3 style="margin-top:10px">
-        নূরজাহান চা বাগান
-       </h3>
-
-       <p style="
-       margin-top:8px;
-       color:#9eb8ad;
-       font-size:12px;
-       line-height:1.6;
-       ">
-
-        এখানে তোমার নিজের
-        Noorjahan Tea Estate-এর
-        actual photo বসাতে পারো।
-
-       </p>
-
-      </div>
-
-     </div>
-
-    </div>
-
-
-    <!-- MADHABPUR -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Madhabpur%20Lake%20reflection%20in%20Sreemangal.jpg"
-     alt="Madhabpur Lake">
-
-     <div class="place-title">
-      🌊 মাধবপুর লেক
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- LAWACHARA -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Lawachara%20Forest.jpg"
-     alt="Lawachara National Park">
-
-     <div class="place-title">
-      🌳 লাউয়াছড়া জাতীয় উদ্যান
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- BODDHOBHUMI -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Boddhobhumi%2071%2C%20Sreemangal.jpg"
-     alt="Boddhobhumi 71 Sreemangal">
-
-     <div class="place-title">
-      🕊️ বধ্যভূমি ৭১ পার্ক
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-
-    <!-- ADI NILKANTHA -->
-
-    <div class="place">
-
-     <img
-     src="https://commons.wikimedia.org/wiki/Special:FilePath/Adi%20nilkonto%20tea%20cabin%2C%20srimongol.jpg"
-     alt="Adi Nilkantha Tea Cabin">
-
-     <div class="place-title">
-      🫖 আদি নীলকণ্ঠ
-     </div>
-
-     <div class="place-credit">
-      Wikimedia Commons
-     </div>
-
-    </div>
-
-   </div>
-
-
-   <div class="info">
-
-
-    <div class="info-box">
-
-     <h4>
-      📍 দর্শনীয় স্থান
-     </h4>
-
-     <p>
-      নূরজাহান চা বাগান<br>
-      মাধবপুর লেক<br>
-      লাউয়াছড়া জাতীয় উদ্যান<br>
-      বধ্যভূমি ৭১ পার্ক<br>
-      আদি নীলকণ্ঠ
-     </p>
-
-    </div>
-
-
-    <div class="info-box">
-
-     <h4>
-      🍽️ খাবার
-     </h4>
-
-     <p>
-      🌅 সকাল — ডিম খিচুড়ি (পানসি শাখা)<br>
-      ☀️ দুপুর — ভাত, সবজি, সোনালী, ডাল (হোটেল রিযিক)<br>
-      🌙 রাত — চিকেন খিচুড়ি (হোটেল রিযিক)
-     </p>
-
-    </div>
-
-   </div>
-
-
-   <p style="margin-top:25px;color:#a9c4b9;line-height:1.8">
-
-    🛺 সকল দর্শনীয় স্থানে চাঁদের গাড়িতে
-    আনা-নেওয়া করা হবে।
-
-    <br><br>
-
-    🌙 সব দর্শনীয় স্থান ঘুরে রাতে
-    বরিশালের উদ্দেশ্যে রওনা।
-
-   </p>
-
-  </div>
-
- </div>
 
 </section>
 
 
-<!-- BICHANAKANDI -->
+<!-- =========================
+     BICHANAKANDI
+========================= -->
 
 <section id="special">
 
- <div class="container">
+    <div class="container">
 
-  <div class="special card reveal">
+        <div class="special card reveal">
 
-   <div class="kicker">
-    SPECIAL VISIT
-   </div>
+            <div class="kicker">
+                SPECIAL VISIT
+            </div>
 
-   <h2>
-    🏞️ বিছনাকান্দি
-   </h2>
+            <h2>
+                🏞️ বিছনাকান্দি
+            </h2>
 
-   <p>
-    বিছনাকান্দি ভ্রমণ করা হবে।
-    সময় ও ট্যুরের পরিস্থিতি অনুযায়ী
-    ভ্রমণের সময় নির্ধারণ করা হবে।
-   </p>
+            <p>
+                বিছনাকান্দি ভ্রমণ করা হবে।
+            </p>
 
-  </div>
-
- </div>
-
-</section>
-
-
-<!-- RETURN -->
-
-<section>
-
- <div class="container">
-
-  <div class="card reveal">
-
-   <div class="day-head">
-
-    <div class="day-number">
-     ↩
-    </div>
-
-    <div>
-
-     <h3>
-      বরিশাল প্রত্যাবর্তন
-     </h3>
-
-     <div class="day-date">
-      11 October 2026
-     </div>
+        </div>
 
     </div>
 
-   </div>
-
-
-   <p style="
-   color:#c8d8d2;
-   line-height:1.8;
-   ">
-
-    সবকিছু পরিকল্পনা অনুযায়ী চললে
-    সকাল
-
-    <b style="color:var(--green)">
-     ৭:০০টার মধ্যে
-    </b>
-
-    বরিশালে পৌঁছানোর সম্ভাবনা রয়েছে।
-
-   </p>
-
-  </div>
-
- </div>
-
 </section>
 
 
-<!-- PACKAGE -->
+<!-- =========================
+     RETURN
+========================= -->
 
 <section>
 
- <div class="container">
+    <div class="container">
 
-  <div class="section-heading reveal">
+        <div class="card reveal">
 
-   <div class="kicker">
-    INCLUDED
-   </div>
+            <div class="day-head">
 
-   <h2>
-    🎒 Package Includes
-   </h2>
+                <div class="day-number">
+                    ↩
+                </div>
 
-  </div>
+                <div>
+
+                    <h3>
+                        বরিশাল প্রত্যাবর্তন
+                    </h3>
+
+                    <div class="day-date">
+                        11 October 2026
+                    </div>
+
+                </div>
+
+            </div>
 
 
-  <div class="card package-list reveal">
+            <p style="
+                color:#c8d8d2;
+                line-height:1.8;
+            ">
 
-   <div>
-    ✅ ২ রাত হোটেলে থাকা
-   </div>
+                সবকিছু পরিকল্পনা অনুযায়ী চললে
+                সকাল
 
-   <div>
-    ✅ মোট ১০ বেলা খাবার
-   </div>
+                <b style="color:var(--green)">
+                    ৭:০০টার মধ্যে
+                </b>
 
-   <div>
-    ✅ সকল প্রকার এন্ট্রি টিকিট
-   </div>
+                বরিশালে পৌঁছানোর সম্ভাবনা রয়েছে।
 
-   <div>
-    ✅ প্রয়োজনীয় সকল লোকাল ট্রান্সপোর্ট
-   </div>
+            </p>
 
-   <div>
-    ✅ বরিশাল → সিলেট → শ্রীমঙ্গল → বরিশাল রিজার্ভ বাস
-   </div>
+        </div>
 
-   <div>
-    ✅ পরিকল্পনা অনুযায়ী সম্পূর্ণ ট্যুর ব্যবস্থাপনা
-   </div>
-
-  </div>
-
- </div>
+    </div>
 
 </section>
 
 
-<!-- GALLERY -->
+<!-- =========================
+     PACKAGE
+========================= -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div class="kicker">
+                INCLUDED
+            </div>
+
+            <h2>
+                🎒 Package Includes
+            </h2>
+
+        </div>
+
+
+        <div class="card package-list reveal">
+
+            <div>
+                ✅ ২ রাত হোটেলে থাকা — Grand Rose Garden (AC)
+            </div>
+
+            <div>
+                ✅ মোট ১০ বেলা খাবার
+            </div>
+
+            <div>
+                ✅ সকল প্রকার এন্ট্রি টিকিট
+            </div>
+
+            <div>
+                ✅ প্রয়োজনীয় সকল লোকাল ট্রান্সপোর্ট
+            </div>
+
+            <div>
+                ✅ বরিশাল → সিলেট → শ্রীমঙ্গল → বরিশাল রিজার্ভ বাস
+            </div>
+
+            <div>
+                ✅ পরিকল্পনা অনুযায়ী সম্পূর্ণ ট্যুর ব্যবস্থাপনা
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BOOK NOW
+========================= -->
+
+<section>
+
+    <div class="container">
+
+        <div class="card booking-box reveal">
+
+            <div class="kicker">
+                LIMITED SEATS
+            </div>
+
+            <h2>
+                সিট সংখ্যা সীমিত
+            </h2>
+
+            <p>
+                ট্যুরে যেতে চাইলে দ্রুত যোগাযোগ করুন।
+            </p>
+
+            <button
+                class="book-btn"
+                id="bookNowBtn">
+
+                🎟️ Book Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONFIRMATION
+========================= -->
+
+<section id="confirmation">
+
+    <div class="container">
+
+        <div class="card confirmation-card reveal">
+
+            <div class="kicker">
+                TOUR CONFIRMATION
+            </div>
+
+
+            <h2>
+                🎟️ Tour Confirmation
+            </h2>
+
+
+            <p class="confirmation-text">
+                যেতে ইচ্ছুক হলে কনফার্ম বাটনে ক্লিক করুন।
+            </p>
+
+
+            <button
+                id="confirmBtn"
+                class="confirm-btn"
+                disabled>
+
+                Confirm
+
+            </button>
+
+
+            <div
+                id="confirmMessage"
+                class="confirm-message">
+
+                সংযোগ হচ্ছে...
+
+            </div>
+
+
+            <div class="confirm-count-box">
+
+                <h3>
+                    ইতোমধ্যে কনফার্ম করেছে
+                </h3>
+
+
+                <span
+                    id="confirmCount"
+                    class="confirm-count">
+
+                    0
+
+                </span>
+
+
+                <div class="confirm-count-label">
+                    জন
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GALLERY
+========================= -->
 
 <section id="gallery">
 
- <div class="container">
+    <div class="container">
 
-  <div class="section-heading reveal">
+        <div class="section-heading reveal">
 
-   <div class="kicker">
-    MEMORIES
-   </div>
+            <div class="kicker">
+                MEMORIES
+            </div>
 
-   <h2>
-    📸 Sylhet Gallery
-   </h2>
+            <h2>
+                📸 Sylhet Gallery
+            </h2>
 
-   <p>
-    Real places. Real escape.
-   </p>
+            <p>
+                Real places. Real escape.
+            </p>
 
-  </div>
-
-
-  <div class="gallery reveal">
+        </div>
 
 
-   <div class="gallery-item">
-
-    <img
-    src="https://commons.wikimedia.org/wiki/Special:FilePath/Jaflong.jpg"
-    alt="Jaflong">
-
-   </div>
+        <div class="gallery reveal">
 
 
-   <div class="gallery-item">
+            <div class="gallery-item">
 
-    <img
-    src="https://commons.wikimedia.org/wiki/Special:FilePath/Lalakhal%20Sylhet.jpg"
-    alt="Lalakhal">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Jaflong.jpg"
+                alt="Jaflong">
 
-   </div>
-
-
-   <div class="gallery-item">
-
-    <img
-    src="https://commons.wikimedia.org/wiki/Special:FilePath/Ratargul%20Swamp%20Forest%20in%20Sylhet.jpg"
-    alt="Ratargul">
-
-   </div>
+            </div>
 
 
-   <div class="gallery-item">
+            <div class="gallery-item">
 
-    <img
-    src="https://commons.wikimedia.org/wiki/Special:FilePath/Volagonj%20Sadapathor%2C%20Sylhet%2C%20Bangladesh.jpg"
-    alt="Sadapathor">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Lalakhal%20Sylhet.jpg"
+                alt="Lalakhal">
 
-   </div>
+            </div>
 
 
-   <div class="gallery-item">
+            <div class="gallery-item">
 
-    <img
-    src="https://commons.wikimedia.org/wiki/Special:FilePath/Bichnakandi%2C%20Sylhet.jpg"
-    alt="Bichanakandi">
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Ratargul%20Swamp%20Forest%20in%20Sylhet.jpg"
+                alt="Ratargul">
 
-   </div>
+            </div>
 
-  </div>
 
- </div>
+            <div class="gallery-item">
+
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Volagonj%20Sadapathor%2C%20Sylhet%2C%20Bangladesh.jpg"
+                alt="Sadapathor">
+
+            </div>
+
+
+            <div class="gallery-item">
+
+                <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Bichnakandi%2C%20Sylhet.jpg"
+                alt="Bichanakandi">
+
+            </div>
+
+
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- LIGHTBOX -->
+<!-- =========================
+     LIGHTBOX
+========================= -->
 
-<div class="lightbox" id="lightbox">
+<div
+    class="lightbox"
+    id="lightbox">
 
- <div class="close" id="close">
-  ×
- </div>
+    <div
+        class="close"
+        id="close">
 
- <img
- id="lightboxImg"
- src=""
- alt="Gallery preview">
+        ×
+
+    </div>
+
+
+    <img
+        id="lightboxImg"
+        src=""
+        alt="Gallery preview">
 
 </div>
 
 
-<!-- CONTACT -->
+<!-- =========================
+     CONTACT
+========================= -->
 
 <section id="contact">
 
- <div class="contact reveal">
+    <div class="contact reveal">
 
-  <div class="kicker">
-   NEED HELP?
-  </div>
+        <div class="kicker">
+            NEED HELP?
+        </div>
 
-  <h2>
-   📞 Contact
-  </h2>
+        <h2>
+            📞 Contact
+        </h2>
 
-  <p style="margin-top:12px">
-   নাঈম মীর
-  </p>
+        <p style="margin-top:12px">
+            নাঈম মীর
+        </p>
 
-  <a
-  class="phone"
-  href="tel:+8801967236743">
+        <a
+            class="phone"
+            href="tel:+8801967236743">
 
-   +8801967236743
+            +8801967236743
 
-  </a>
+        </a>
 
- </div>
+    </div>
 
 </section>
 
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
- 🧪 A Chemical Escape to Sylhet
+    🧪 A Chemical Escape to Sylhet
 
- <br>
+    <br>
 
- Chemistry Department • Government BM College
+    Chemistry Department • Government BM College
 
- <br><br>
+    <br><br>
 
- Department Tour 2026 • 07–11 October
+    Department Tour 2026 • 07–11 October
 
- <br><br>
+    <br><br>
 
- Photos: Wikimedia Commons where indicated
+    Photos: Wikimedia Commons where indicated
 
 </footer>
 
 
-<!-- MUSIC -->
+<!-- =========================
+     DEVELOPER CREDIT
+========================= -->
+
+<div class="developer-credit">
+
+    Developed by
+    <span>
+        Abdullah Al Jamil
+    </span>
+
+</div>
+
+
+<!-- =========================
+     BOOK NOW POPUP
+========================= -->
+
+<div
+    class="popup"
+    id="bookPopup">
+
+    <div class="popup-card">
+
+        <h3>
+            🎟️ Book Now
+        </h3>
+
+        <p>
+            ক্লাস প্রতিনিধি অথবা নাঈম মীর ভাইয়ের সাথে যোগাযোগ করুন।ধন্যবাদ।
+        </p>
+
+        <button
+            class="popup-close"
+            id="popupClose">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MUSIC
+========================= -->
 
 <button
-class="music"
-id="musicBtn"
-title="Music">
+    class="music"
+    id="musicBtn"
+    title="Music">
 
- 🎵
+    🎵
 
 </button>
 
 
 <audio
-id="music"
-loop>
+    id="music"
+    loop>
 
- <source
- src="music.mp3"
- type="audio/mpeg">
+    <source
+        src="music.mp3"
+        type="audio/mpeg">
 
 </audio>
 
 
+<!-- =========================
+     BASIC JAVASCRIPT
+========================= -->
+
 <script>
 
-/* LOADER */
+/* =========================
+   LOADER
+========================= */
 
-window.addEventListener("load",()=>{
+window.addEventListener(
+    "load",
+    () => {
 
- setTimeout(()=>{
+        setTimeout(
+            () => {
 
-  document
-  .getElementById("loader")
-  .classList
-  .add("hide");
+                const loader =
+                    document.getElementById(
+                        "loader"
+                    );
 
- },2300);
+                if(loader){
+                    loader.classList.add(
+                        "hide"
+                    );
+                }
 
-});
+            },
+            2300
+        );
 
-
-/* SCROLL REVEAL */
-
-const reveals =
-document.querySelectorAll(".reveal");
-
-
-const revealObserver =
-new IntersectionObserver(
-
- entries=>{
-
-  entries.forEach(entry=>{
-
-   if(entry.isIntersecting){
-
-    entry.target
-    .classList
-    .add("visible");
-
-   }
-
-  });
-
- },
-
- {threshold:.12}
-
+    }
 );
 
 
-reveals.forEach(el=>{
+/* =========================
+   SCROLL REVEAL
+========================= */
 
- revealObserver.observe(el);
+const reveals =
+    document.querySelectorAll(
+        ".reveal"
+    );
 
-});
+
+const revealObserver =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target
+                            .classList
+                            .add(
+                                "visible"
+                            );
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold:.12
+        }
+
+    );
 
 
-/* NAV ACTIVE */
+reveals.forEach(
+    element => {
+
+        revealObserver.observe(
+            element
+        );
+
+    }
+);
+
+
+/* =========================
+   NAV ACTIVE
+========================= */
 
 const navLinks =
-document.querySelectorAll(".nav a");
+    document.querySelectorAll(
+        ".nav a"
+    );
+
 
 const sections =
-document.querySelectorAll("section[id]");
+    document.querySelectorAll(
+        "section[id]"
+    );
 
 
-window.addEventListener("scroll",()=>{
+window.addEventListener(
+    "scroll",
+    () => {
 
- let current="";
+        let current = "";
 
- sections.forEach(section=>{
+        sections.forEach(
+            section => {
 
-  const top =
-  section.offsetTop-160;
+                const top =
+                    section.offsetTop
+                    - 160;
 
-  if(window.scrollY>=top){
+                if(
+                    window.scrollY
+                    >= top
+                ){
 
-   current =
-   section.getAttribute("id");
+                    current =
+                        section.getAttribute(
+                            "id"
+                        );
 
-  }
+                }
 
- });
-
-
- navLinks.forEach(link=>{
-
-  link.classList.remove("active");
-
-  if(
-   link.getAttribute("href")
-   ==="#"+current
-  ){
-
-   link.classList.add("active");
-
-  }
-
- });
-
-});
+            }
+        );
 
 
-/* LIGHTBOX */
+        navLinks.forEach(
+            link => {
+
+                link.classList.remove(
+                    "active"
+                );
+
+
+                if(
+                    link.getAttribute(
+                        "href"
+                    )
+                    ===
+                    "#"+current
+                ){
+
+                    link.classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================
+   LIGHTBOX
+========================= */
 
 const galleryItems =
-document.querySelectorAll(".gallery-item");
+    document.querySelectorAll(
+        ".gallery-item"
+    );
+
 
 const lightbox =
-document.getElementById("lightbox");
+    document.getElementById(
+        "lightbox"
+    );
+
 
 const lightboxImg =
-document.getElementById("lightboxImg");
-
-const close =
-document.getElementById("close");
-
-
-galleryItems.forEach(item=>{
-
- item.addEventListener("click",()=>{
-
-  const img =
-  item.querySelector("img");
-
-  lightboxImg.src =
-  img.src;
-
-  lightbox.classList.add("open");
-
- });
-
-});
+    document.getElementById(
+        "lightboxImg"
+    );
 
 
-close.addEventListener("click",()=>{
-
- lightbox.classList.remove("open");
-
-});
-
-
-lightbox.addEventListener("click",(e)=>{
-
- if(e.target===lightbox){
-
-  lightbox.classList.remove("open");
-
- }
-
-});
+const closeButton =
+    document.getElementById(
+        "close"
+    );
 
 
-/* MUSIC */
+galleryItems.forEach(
+    item => {
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                const img =
+                    item.querySelector(
+                        "img"
+                    );
+
+
+                if(!img){
+                    return;
+                }
+
+
+                lightboxImg.src =
+                    img.src;
+
+
+                lightbox.classList.add(
+                    "open"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+closeButton.addEventListener(
+    "click",
+    () => {
+
+        lightbox.classList.remove(
+            "open"
+        );
+
+    }
+);
+
+
+lightbox.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target ===
+            lightbox
+        ){
+
+            lightbox.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   MUSIC
+========================= */
 
 const music =
-document.getElementById("music");
+    document.getElementById(
+        "music"
+    );
+
 
 const musicBtn =
-document.getElementById("musicBtn");
+    document.getElementById(
+        "musicBtn"
+    );
 
 
-musicBtn.addEventListener("click",async()=>{
+musicBtn.addEventListener(
+    "click",
+    async () => {
 
- if(music.paused){
+        if(
+            music.paused
+        ){
 
-  try{
+            try{
 
-   await music.play();
+                await music.play();
 
-   musicBtn.classList.add("playing");
+                musicBtn.classList.add(
+                    "playing"
+                );
 
-   musicBtn.textContent="🔊";
+                musicBtn.textContent =
+                    "🔊";
 
-  }
+            }
 
-  catch(error){
+            catch(error){
 
-   alert(
-   "music.mp3 ফাইলটি repository-তে আছে কিনা দেখুন।"
-   );
+                alert(
+                    "music.mp3 ফাইলটি repository-তে আছে কিনা দেখুন।"
+                );
 
-  }
+            }
 
- }else{
+        }
 
-  music.pause();
+        else{
 
-  musicBtn.classList.remove("playing");
+            music.pause();
 
-  musicBtn.textContent="🎵";
+            musicBtn.classList.remove(
+                "playing"
+            );
 
- }
+            musicBtn.textContent =
+                "🎵";
 
-});
+        }
+
+    }
+);
 
 
-/* ESC */
+/* =========================
+   BOOK NOW POPUP
+========================= */
 
-document.addEventListener("keydown",(e)=>{
+const bookNowBtn =
+    document.getElementById(
+        "bookNowBtn"
+    );
 
- if(e.key==="Escape"){
 
-  lightbox.classList.remove("open");
+const bookPopup =
+    document.getElementById(
+        "bookPopup"
+    );
 
- }
 
-});
+const popupClose =
+    document.getElementById(
+        "popupClose"
+    );
+
+
+bookNowBtn.addEventListener(
+    "click",
+    () => {
+
+        bookPopup.classList.add(
+            "show"
+        );
+
+    }
+);
+
+
+popupClose.addEventListener(
+    "click",
+    () => {
+
+        bookPopup.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+bookPopup.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target ===
+            bookPopup
+        ){
+
+            bookPopup.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Escape"
+        ){
+
+            lightbox.classList.remove(
+                "open"
+            );
+
+            bookPopup.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
 
 </script>
-<!-- Developer Credit -->
-<div class="developer-credit">
-    Developed by <span>Abdullah Al Jamil</span>
-</div>
-
-<style>
-    .developer-credit {
-        text-align: center;
-        padding: 25px 15px 30px;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.65);
-        letter-spacing: 1px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(0, 0, 0, 0.25);
-    }
-
-    .developer-credit span {
-        color: #fff;
-        font-weight: 600;
-        text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
-    }
- </style>
- <!-- CONFIRMATION SECTION -->
-
-<section id="confirmation">
-  <div class="container">
-
-    <div class="card reveal" style="text-align:center;">
-
-      <div class="kicker">
-        TOUR CONFIRMATION
-      </div>
-
-      <h2 style="margin-top:10px;">
-        🎟️ Tour Confirmation
-      </h2>
-
-      <p style="
-        margin-top:15px;
-        color:#c8d8d2;
-        line-height:1.8;
-      ">
-        যেতে ইচ্ছুক হলে কনফার্ম বাটনে ক্লিক করুন।
-      </p>
-
-      <button
-        id="confirmBtn"
-        style="
-          margin-top:25px;
-          padding:15px 35px;
-          border:none;
-          border-radius:50px;
-          background:var(--green);
-          color:#04150e;
-          font-size:16px;
-          font-weight:700;
-          cursor:pointer;
-          box-shadow:0 0 25px rgba(141,255,209,.18);
-        "
-      >
-        Confirm
-      </button>
-
-      <div
-        id="confirmMessage"
-        style="
-          margin-top:15px;
-          color:var(--green);
-          min-height:24px;
-        "
-      ></div>
-
-    </div>
 
 
-    <div class="card reveal" style="
-      margin-top:25px;
-      text-align:center;
-    ">
-
-      <div class="kicker">
-        CONFIRMED MEMBERS
-      </div>
-
-      <h3 style="
-        margin-top:10px;
-        font-size:22px;
-      ">
-        ইতোমধ্যে কনফার্ম করেছে
-      </h3>
-
-      <div
-        id="confirmCount"
-        style="
-          margin-top:20px;
-          font-size:55px;
-          font-weight:800;
-          color:var(--green);
-          text-shadow:0 0 25px rgba(141,255,209,.25);
-        "
-      >
-        0
-      </div>
-
-      <p style="
-        margin-top:5px;
-        color:#91aaa1;
-      ">
-        জন
-      </p>
-
-    </div>
-
-  </div>
-</section>
- <!-- FIREBASE TOUR CONFIRMATION -->
+<!-- ==================================================
+     FIREBASE TOUR CONFIRMATION
+================================================== -->
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
 
 import {
-  getAuth,
-  signInAnonymously
+    getAuth,
+    signInAnonymously
 }
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
 
 import {
-  getDatabase,
-  ref,
-  set,
-  onValue
+    getDatabase,
+    ref,
+    set,
+    onValue
 }
-from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 
-// ===============================
-// FIREBASE CONFIG
-// ===============================
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
 
-  apiKey:
-    "AIzaSyCdMdNCqn3PwDyH0en3INUG4j6lDL-ojUU",
+    apiKey:
+        "AIzaSyCdMdNCqn3PwDyH0en3INUG4j6lDL-ojUU",
 
-  authDomain:
-    "chemical-escape-sylhet.firebaseapp.com",
+    authDomain:
+        "chemical-escape-sylhet.firebaseapp.com",
 
-  databaseURL:
-    "https://chemical-escape-sylhet-default-rtdb.firebaseio.com",
+    databaseURL:
+        "https://chemical-escape-sylhet-default-rtdb.firebaseio.com",
 
-  projectId:
-    "chemical-escape-sylhet",
+    projectId:
+        "chemical-escape-sylhet",
 
-  storageBucket:
-    "chemical-escape-sylhet.firebasestorage.app",
+    storageBucket:
+        "chemical-escape-sylhet.firebasestorage.app",
 
-  messagingSenderId:
-    "984807487892",
+    messagingSenderId:
+        "984807487892",
 
-  appId:
-    "1:984807487892:web:ca8834d1ac24b245997781",
+    appId:
+        "1:984807487892:web:ca8834d1ac24b245997781",
 
-  measurementId:
-    "G-0BJLKPQ0RF"
+    measurementId:
+        "G-0BJLKPQ0RF"
 
 };
 
 
-// ===============================
-// INITIALIZE FIREBASE
-// ===============================
+/* =========================
+   INITIALIZE FIREBASE
+========================= */
 
-const app = initializeApp(firebaseConfig);
+const app =
+    initializeApp(
+        firebaseConfig
+    );
 
-const auth = getAuth(app);
 
-const db = getDatabase(app);
+const auth =
+    getAuth(app);
 
 
-// ===============================
-// HTML ELEMENTS
-// ===============================
+const db =
+    getDatabase(app);
+
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const confirmButton =
-  document.getElementById("confirmBtn");
+    document.getElementById(
+        "confirmBtn"
+    );
+
 
 const confirmCount =
-  document.getElementById("confirmCount");
+    document.getElementById(
+        "confirmCount"
+    );
+
 
 const confirmMessage =
-  document.getElementById("confirmMessage");
+    document.getElementById(
+        "confirmMessage"
+    );
 
 
-// ===============================
-// START ANONYMOUS LOGIN
-// ===============================
+/* =========================
+   ANONYMOUS LOGIN
+========================= */
 
 signInAnonymously(auth)
 
-  .then((userCredential) => {
+.then(
+    userCredential => {
 
-    const user = userCredential.user;
-
-    const userRef =
-      ref(db, "tourConfirmations/" + user.uid);
+        const user =
+            userCredential.user;
 
 
-    // ===============================
-    // CHECK IF USER ALREADY CONFIRMED
-    // ===============================
+        const userRef =
+            ref(
+                db,
+                "tourConfirmations/"
+                + user.uid
+            );
 
-    onValue(userRef, (snapshot) => {
 
-      if (snapshot.exists() && snapshot.val() === true) {
+        /* =========================
+           CHECK USER CONFIRMATION
+        ========================= */
 
-        confirmButton.disabled = true;
+        onValue(
+            userRef,
+            snapshot => {
 
-        confirmButton.textContent =
-          "✓ Confirmed";
+                if(
+                    snapshot.exists()
+                    &&
+                    snapshot.val()
+                    === true
+                ){
 
-        confirmButton.style.opacity = "0.6";
+                    confirmButton.disabled =
+                        true;
 
-        confirmButton.style.cursor =
-          "not-allowed";
+
+                    confirmButton.textContent =
+                        "✓ Confirmed";
+
+
+                    confirmMessage.textContent =
+                        "আপনি ইতোমধ্যে কনফার্ম করেছেন। ❤️";
+
+                }
+
+                else{
+
+                    confirmButton.disabled =
+                        false;
+
+
+                    confirmButton.textContent =
+                        "Confirm";
+
+
+                    confirmMessage.textContent =
+                        "";
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           CONFIRM BUTTON
+        ========================= */
+
+        confirmButton.addEventListener(
+            "click",
+            async () => {
+
+                if(
+                    confirmButton.disabled
+                ){
+
+                    return;
+
+                }
+
+
+                confirmButton.disabled =
+                    true;
+
+
+                confirmButton.textContent =
+                    "Confirming...";
+
+
+                try{
+
+                    await set(
+                        userRef,
+                        true
+                    );
+
+
+                    confirmButton.textContent =
+                        "✓ Confirmed";
+
+
+                    confirmButton.style.opacity =
+                        "0.65";
+
+
+                    confirmButton.style.cursor =
+                        "not-allowed";
+
+
+                    confirmMessage.textContent =
+                        "আপনার কনফার্মেশন সফল হয়েছে। ❤️";
+
+                }
+
+
+                catch(error){
+
+                    console.error(
+                        "Confirmation error:",
+                        error
+                    );
+
+
+                    confirmButton.disabled =
+                        false;
+
+
+                    confirmButton.textContent =
+                        "Confirm";
+
+
+                    confirmMessage.textContent =
+                        "কনফার্ম করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           LIVE CONFIRMATION COUNT
+        ========================= */
+
+        const confirmationsRef =
+            ref(
+                db,
+                "tourConfirmations"
+            );
+
+
+        onValue(
+            confirmationsRef,
+            snapshot => {
+
+                const data =
+                    snapshot.val();
+
+
+                let count = 0;
+
+
+                if(data){
+
+                    count =
+                        Object.keys(
+                            data
+                        ).length;
+
+                }
+
+
+                confirmCount.textContent =
+                    count;
+
+            }
+        );
+
+    }
+)
+
+
+.catch(
+    error => {
+
+        console.error(
+            "Firebase authentication error:",
+            error
+        );
+
+
+        confirmButton.disabled =
+            true;
+
 
         confirmMessage.textContent =
-          "আপনি ইতোমধ্যে কনফার্ম করেছেন। ❤️";
+            "সংযোগ করতে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।";
 
-      }
-
-    });
-
-
-    // ===============================
-    // CONFIRM BUTTON
-    // ===============================
-
-    confirmButton.addEventListener(
-      "click",
-      async () => {
-
-        if (confirmButton.disabled) {
-          return;
-        }
-
-
-        confirmButton.disabled = true;
-
-        confirmButton.textContent =
-          "Confirming...";
-
-
-        try {
-
-          await set(
-            userRef,
-            true
-          );
-
-
-          confirmButton.textContent =
-            "✓ Confirmed";
-
-          confirmButton.style.opacity =
-            "0.6";
-
-          confirmButton.style.cursor =
-            "not-allowed";
-
-
-          confirmMessage.textContent =
-            "আপনার কনফার্মেশন সফল হয়েছে। ❤️";
-
-
-        }
-
-        catch (error) {
-
-          console.error(
-            "Confirmation error:",
-            error
-          );
-
-
-          confirmButton.disabled =
-            false;
-
-          confirmButton.textContent =
-            "Confirm";
-
-
-          confirmMessage.textContent =
-            "কনফার্ম করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।";
-
-        }
-
-      }
-    );
-
-
-    // ===============================
-    // LIVE CONFIRMATION COUNT
-    // ===============================
-
-    const confirmationsRef =
-      ref(db, "tourConfirmations");
-
-
-    onValue(
-      confirmationsRef,
-      (snapshot) => {
-
-        const data =
-          snapshot.val();
-
-
-        let count = 0;
-
-
-        if (data) {
-
-          count =
-            Object.keys(data).length;
-
-        }
-
-
-        confirmCount.textContent =
-          count;
-
-      }
-    );
-
-  })
-
-
-  .catch((error) => {
-
-    console.error(
-      "Firebase authentication error:",
-      error
-    );
-
-
-    confirmMessage.textContent =
-      "সংযোগ করতে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।";
-
-  });
+    }
+);
 
 </script>
+
+
 </body>
 </html>
