@@ -312,6 +312,32 @@ body{
  color:#06150f;
 }
 
+ /* NOTICE BUTTON */
+
+.notice-btn{
+ color:#fff !important;
+ background:#d92323 !important;
+ border:1px solid rgba(255,80,80,.7) !important;
+ box-shadow:0 0 18px rgba(255,0,0,.25);
+ font-weight:700 !important;
+ animation:noticePulse 2s infinite;
+}
+
+.notice-btn:hover{
+ background:#ff3030 !important;
+ color:#fff !important;
+ transform:scale(1.05);
+}
+
+@keyframes noticePulse{
+ 0%,100%{
+  box-shadow:0 0 12px rgba(255,0,0,.25);
+ }
+ 50%{
+  box-shadow:0 0 25px rgba(255,0,0,.55);
+ }
+}
+ 
 /* COMMON */
 
 section{
